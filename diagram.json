@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "author": "Smart Watering STEM Project",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-lcd1602", "id": "lcd1", "top": -200, "left": 180, "attrs": { "pins": "i2c" } },
+    { "type": "wokwi-dht22", "id": "dht1", "top": -150, "left": -120, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot_soil", "top": 150, "left": -150, "attrs": { "label": "Do am dat (Soil)" } },
+    { "type": "wokwi-potentiometer", "id": "pot_bat", "top": 280, "left": -150, "attrs": { "label": "Muc Pin (Bat)" } },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 100, "left": 280, "attrs": {} },
+    { "type": "wokwi-led", "id": "led_mode", "top": -100, "left": 50, "attrs": { "color": "blue", "label": "Auto/Manual" } },
+    { "type": "wokwi-led", "id": "led_pump", "top": -100, "left": 90, "attrs": { "color": "green", "label": "Pump" } },
+    { "type": "wokwi-led", "id": "led_bat", "top": -100, "left": 130, "attrs": { "color": "red", "label": "Low Bat" } },
+    { "type": "wokwi-resistor", "id": "r1", "top": -40, "left": 50, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r2", "top": -40, "left": 90, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r3", "top": -40, "left": 130, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+
+    [ "esp:GND.1", "lcd1:GND", "black", [ "v0" ] ],
+    [ "esp:5V", "lcd1:VCC", "red", [ "v0" ] ],
+    [ "esp:21", "lcd1:SDA", "green", [ "v0" ] ],
+    [ "esp:22", "lcd1:SCL", "blue", [ "v0" ] ],
+
+    [ "esp:GND.1", "dht1:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "dht1:VCC", "red", [ "v0" ] ],
+    [ "esp:15", "dht1:SDA", "orange", [ "v0" ] ],
+
+    [ "esp:GND.1", "pot_soil:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "pot_soil:VCC", "red", [ "v0" ] ],
+    [ "esp:34", "pot_soil:SIG", "purple", [ "v0" ] ],
+
+    [ "esp:GND.1", "pot_bat:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "pot_bat:VCC", "red", [ "v0" ] ],
+    [ "esp:35", "pot_bat:SIG", "purple", [ "v0" ] ],
+
+    [ "esp:GND.2", "relay1:GND", "black", [ "v0" ] ],
+    [ "esp:5V", "relay1:VCC", "red", [ "v0" ] ],
+    [ "esp:26", "relay1:IN", "cyan", [ "v0" ] ],
+
+    [ "esp:2", "r1:1", "blue", [ "v0" ] ],
+    [ "r1:2", "led_mode:A", "blue", [ "v0" ] ],
+    [ "led_mode:C", "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "esp:4", "r2:1", "green", [ "v0" ] ],
+    [ "r2:2", "led_pump:A", "green", [ "v0" ] ],
+    [ "led_pump:C", "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "esp:5", "r3:1", "red", [ "v0" ] ],
+    [ "r3:2", "led_bat:A", "red", [ "v0" ] ],
+    [ "led_bat:C", "esp:GND.1", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}
